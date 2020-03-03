@@ -1,2 +1,2 @@
 # logpad
-android or ADB log analysing tool on python
+Android or ADB log analysing tool on python
