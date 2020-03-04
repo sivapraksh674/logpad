@@ -1,50 +1,82 @@
-try:
-    import Tkinter as tkin # this is for python2
-    import tkFileDialog
-    import tkMessageBox
-except:
-    import tkinter as tkin # this is for python3
-    tkFileDialog=tkin.filedialog
-    tkMessageBox=tkin.messagebox
+###################################################################
+# Author    :   Sivaprakash.B                                     #
+# Email     :   sivaprakash674@gmail.com                          #
+# Purpose   :   Android or ADB log analysing tool on python       #
+###################################################################
 
-import subprocess
+
+# Validating the import as python versions < 3 supports Tkinter ( T - Upper Case )
+# And python versions >3 supports tkinter ( T - Lower Case )
+
+try:
+    import Tkinter as tkin         # This is for python2
+    import tkFileDialog            # For providing dialog box option for selecting files
+    import tkMessageBox            # For displaying message box alerts
+    import webbrowser              # For converting text into clickable links
+except:
+    import tkinter as tkin         # This is for python3
+    tkFileDialog=tkin.filedialog   # For providing dialog box option for selecting files
+    tkMessageBox=tkin.messagebox   # For displaying message box alerts
+    import webbrowser              # For converting text into clickable links
+
+import subprocess                  # For validating the output on the search query
+
 m=tkin.Tk()
 m.title('LogPad')
 m.resizable(0,0) 
 filename =""
 bgcolor='black'
 fgcolor='green'
-
 logscolorcode = {'E':'red', 'W':'yellow','D':'green', 'I':'white','V':'blue','all':'white'} 
+textforrating = "If you like the project mark the star at https://github.com/sivapraksh674/logpad \n"
+
+# Top frame holds the file selection and file path display section 
 
 topframe = tkin.Frame(m)
 topframe.configure(bg=bgcolor)
 topframe.pack( side = tkin.TOP, expand=tkin.TRUE)
+
+# Search frame is used to set the search filters and have search box enter the text for search
+
 searchframe = tkin.Frame(m)
 searchframe.configure(bg=bgcolor)
 searchframe.pack( side = tkin.TOP,expand=tkin.TRUE )
+
+# Bottom frame holds the Log Area to display the logs .
+
 bottomframe = tkin.Frame(m)
 bottomframe.configure(bg=bgcolor)
 bottomframe.pack( side = tkin.TOP, expand=tkin.TRUE )
 
+
+# Function to select the file to parse the logs.
+
 def SelectFile():
      global filename
-     print("hit")
+     print (textforrating)
      filename = tkFileDialog.askopenfilename(initialdir = ".",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
      if len(filename) == 0 :
          return
      filepatharea.delete('1.0', tkin.END)
-     filepatharea.insert(tkin.INSERT,filename )
+     filepatharea.insert(tkin.INSERT,filename)
      searchquery = "awk '{ print;}' "+ filename
      logarea.config(fg=logscolorcode[logtype.get()]) 
      logarea.insert(tkin.INSERT,subprocess.check_output(searchquery,shell=True))
-     
+
+# Search function to filter the logs based on selection 
+
 def SearchFunction():
      global filename,logtype,cataegory
+     print (textforrating)
+
+     # Validation to check if a file is selected or not 
      if len(filename) == 0 :
          tkMessageBox.showerror("Error", "Please select the log file to perform search")
          return
      logarea.delete('1.0', tkin.END)
+
+     # Validation to if search should be performed only on classname or not.
+
      if cataegory.get() :
          if logtype.get() == "all" :
             searchquery = "awk '{ print $6;}' "+ filename +" | sort -u "
@@ -57,17 +89,21 @@ def SearchFunction():
              searchquery = "awk '{ if( $5 == \""+logtype.get()+"\" ) print;}' "+ filename 
      if searchbox.get("1.0",'end-1c') :
          searchquery = searchquery+" | grep \""+ searchbox.get("1.0",'end-1c') + "\" "
-     print ( searchquery )  
+     print ( "\n" + searchquery )  
     
      logarea.config(fg=logscolorcode[logtype.get()]) 
      logarea.insert(tkin.INSERT,subprocess.check_output(searchquery,shell=True))
 
+# Event Call Back for Key Down Events
 
 def HandleKeyRelease (e) :
     print ( "Keypressed" , e.char )
     SearchFunction()
 
+# Callback function to call a web URL
 
+def callback(url):
+    webbrowser.open_new(url)
 
 # File Path label creation and packing to the view area
 
@@ -101,7 +137,7 @@ searchboxlabel.pack(side=tkin.LEFT)
 
 searchbox=tkin.Text(searchframe, height=2, width=50, borderwidth=2, relief=tkin.GROOVE)
 searchbox.configure(highlightbackground=bgcolor)
-searchbox.bind('<KeyRelease>',HandleKeyRelease)
+searchbox.bind('<Key>',HandleKeyRelease)
 searchbox.pack(side=tkin.LEFT)
 
 
@@ -111,6 +147,7 @@ cataegory = tkin.IntVar()
 classnamecheckbox = tkin.Checkbutton(searchframe,variable=cataegory,command=SearchFunction)
 classnamecheckbox.config(bg=bgcolor)
 classnamecheckbox.pack(side=tkin.LEFT)
+
 # Search box label creation and packing to the view area
 
 classnamecheckboxlabel = tkin.Label(searchframe,justify = tkin.LEFT)
@@ -175,7 +212,16 @@ logarealabel.pack(anchor=tkin.W)
 
 # Log Area creation and packing to the view area
 
-logarea = tkin.Text(bottomframe,wrap=tkin.WORD,width=200, height= 30, borderwidth=2, relief=tkin.GROOVE,bg=bgcolor,fg=fgcolor)
+logarea = tkin.Text(bottomframe,wrap=tkin.WORD,width=200, height= 30, borderwidth=2, relief=tkin.GROOVE, bg=bgcolor, fg=fgcolor)
 logarea.pack(fill="none", expand=tkin.TRUE)
+
+# Added hyperlink to the Github Repository 
+
+githublink = tkin.Label(m, text="If you like the project click here to mark the star at github \n https://github.com/sivapraksh674/logpad", bg=bgcolor, fg=fgcolor, cursor="hand2")
+githublink.pack()
+githublink.bind("<Button-1>", lambda e: callback("https://github.com/sivapraksh674/logpad"))
+
+# Adding config to the Root Element ( m )
+
 m.config(bg=bgcolor)
 m.mainloop()
