@@ -147,7 +147,7 @@ searchboxlabel.pack(side=tkin.LEFT)
 
 searchbox=tkin.Text(searchframe, height=2, width=50, borderwidth=2, relief=tkin.GROOVE)
 searchbox.configure(highlightbackground=bgcolor)
-searchbox.bind('<Key>',HandleKeyRelease)
+searchbox.bind('<KeyRelease>',HandleKeyRelease)
 searchbox.pack(side=tkin.LEFT)
 
 
