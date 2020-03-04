@@ -21,13 +21,23 @@ except:
 
 import subprocess                  # For validating the output on the search query
 
-m=tkin.Tk()
-m.title('LogPad')
-m.resizable(0,0) 
-filename =""
-bgcolor='black'
-fgcolor='green'
+
+# Declaring variables required for the code 
+
+m=tkin.Tk()                        # Creating root object ( m )  of the Tkinter ot tkinter 
+m.title('LogPad')                  # Adding title to the root object or the GUI Window.
+m.resizable(0,0)                   # Setting the window not to be resized due to python limitations
+
+filename =""                       # Variable to hold the file path of the file to be analysied 
+bgcolor='black'                    # Variable to hold Background color for the theme
+fgcolor='green'                    # Variable to hold foreground or text color for the theme
+
+# Variable to hold the color code for the logs based on the type log filter. 
+
 logscolorcode = {'E':'red', 'W':'yellow','D':'green', 'I':'white','V':'blue','all':'white'} 
+
+# Variable to hold the text with link to reach the gitHub page.
+
 textforrating = "If you like the project mark the star at https://github.com/sivapraksh674/logpad \n"
 
 # Top frame holds the file selection and file path display section 
@@ -42,7 +52,7 @@ searchframe = tkin.Frame(m)
 searchframe.configure(bg=bgcolor)
 searchframe.pack( side = tkin.TOP,expand=tkin.TRUE )
 
-# Bottom frame holds the Log Area to display the logs .
+# Bottom frame holds the Log Area to display the logs.
 
 bottomframe = tkin.Frame(m)
 bottomframe.configure(bg=bgcolor)
