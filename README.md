@@ -6,7 +6,7 @@ Features :
 
 * Have GUI Based File Selection option.:file_folder:
 
-* Have Filters to seperate Logs Type based category selection, Log types supported are : :vertical_traffic_light:
+* Have Filters to separate Logs Type based category selection, Log types supported are : :vertical_traffic_light:
     </br>&ensp;&ensp;&ensp;:one: E &ensp;- &ensp;Error
     </br>&ensp;&ensp;&ensp;:two: W &nbsp;- &ensp;Warning
     </br>&ensp;&ensp;&ensp;:three: D &nbsp;&nbsp;- &ensp;Debug
@@ -17,5 +17,5 @@ Features :
 
 * Have Generic keyword based search support.:microscope:
 
-* Color of logs changes based on the type of log filter selected.:wink:
+* Colour of logs changes based on the type of log filter selected.:wink:
 
