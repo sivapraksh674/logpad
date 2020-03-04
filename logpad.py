@@ -155,7 +155,7 @@ classnamecheckboxlabel.config(text = "Search Class Name Alone",bg=bgcolor,fg=fgc
 classnamecheckboxlabel.pack(side=tkin.LEFT)
 
 
-# Logs Type ( E - Error, W - Warning, D - Debug, I - Info, V - Verbose , ALL ) Category selection 
+# Logs Type ( E - Error, W - Warning, D - Debug, I - Information, V - Verbose , ALL ) Category selection 
 # Radio box creation, packing and default option selection.
 
 logtype= tkin.StringVar()
