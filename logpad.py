@@ -88,7 +88,7 @@ def SearchFunction():
          tkMessageBox.showerror("Error", "Please select the log file to perform search")
          return
     
-     # Clearing Log Area new search results
+     # Clearing Log Area for new search results
         
      logarea.delete('1.0', tkin.END)
 
