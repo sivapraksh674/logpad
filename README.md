@@ -1,6 +1,6 @@
 # Logpad  :dart:
 
-Android or ADB Log analysing GUI Based Tool on python Tkinter ( python version < 3 ) and tkinter ( python version < 3 ) 
+Android or ADB Log analysing GUI Based Tool on python Tkinter ( python version < 3 ) and tkinter ( python version > 3 ) 
 
 Features :
 
