@@ -65,8 +65,12 @@ def SelectFile():
      global filename
      print (textforrating)
      filename = tkFileDialog.askopenfilename(initialdir = ".",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
+        
+     # Validation to check if a file is selected or not 
+    
      if len(filename) == 0 :
          return
+    
      filepatharea.delete('1.0', tkin.END)
      filepatharea.insert(tkin.INSERT,filename)
      searchquery = "awk '{ print;}' "+ filename
@@ -83,6 +87,9 @@ def SearchFunction():
      if len(filename) == 0 :
          tkMessageBox.showerror("Error", "Please select the log file to perform search")
          return
+    
+     # Clearing Log Area new search results
+        
      logarea.delete('1.0', tkin.END)
 
      # Validation to if search should be performed only on classname or not.
